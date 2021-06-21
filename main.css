@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(71,9,121,1) 31%, rgba(0,212,255,1) 99%);
+}
+#trivia {
+    width: 30vw;
+    border-radius: 8px;
+    background-color:  #fff;
+    color: #000;
+    font-weight: 600;
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 5%;
+    line-height: 2.5rem;
+    margin: 5rem;
+}
