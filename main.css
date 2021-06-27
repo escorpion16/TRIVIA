@@ -10,7 +10,9 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #0C0C0C;
+    font-family: 'Ubuntu', sans-serif;
 }
+
 #trivia {
     width: 30vw;
     border-radius: 8px;
@@ -89,5 +91,6 @@ body {
     border: none;
     border-radius: 5px;
     font-size: 1.2rem;
-    font-weight: ;
+    font-weight: 700;
+    color: #fff;
 }
