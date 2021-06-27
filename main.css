@@ -29,10 +29,17 @@ body {
     background-color: #161616;
 }
 
+.question-field{
+    width: 90%;
+}
+
 .question-field label {
     width: 100%;
-    display: flex;
-    
+    display: flex; 
+}
+
+.question-field select{
+    width: 100%;
 }
 
 .content {
@@ -73,3 +80,14 @@ body {
     color: #fff;
 }
 
+#trivia .submitForm {
+    margin-top: 2rem;
+    width: 90%;
+    height: 2rem;
+    background-color: #4f9;
+    box-shadow: 0 0 25px rgb(19, 211, 105);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: ;
+}

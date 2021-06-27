@@ -7,6 +7,9 @@ let category = document.getElementById("category");
 let difficulty = document.getElementById("difficulty");
 let type = document.getElementById("type");
 
+let questionIndex = document.getElementById("question_index");
+let numQuestions = document.getElementById("num_questions"); 
+
 let answers = document.getElementsByClassName("answers");
 //Variables de control
 let questions;
@@ -35,9 +38,7 @@ const startGame = () => {
 
     //Variable para controlar preguntas una por una
     let currentQuestion = questions[qIndex];
-    console.log(currentQuestion.question);
     questionTitle.innerText = currentQuestion.question;
-    qIndex += 1
 
     //Variable para controlar respuestas una por una
     let typeQuestion = currentQuestion.type
@@ -47,6 +48,9 @@ const startGame = () => {
         document.getElementById("2").innerText = "False";
         document.getElementById("3").style.display = "none";
         document.getElementById("4").style.display = "none";
+
+        if(currentQuestion.correct_answer === 'True') correct_index_answer = 1 ;
+        else correct_index_answer = 2;
     }else{
         document.getElementById("1").style.display = "block";
         document.getElementById("2").style.display = "block";
@@ -63,43 +67,49 @@ const startGame = () => {
             j++;
         }
     }
+
+    questionIndex.innerText = qIndex + 1;
+    numQuestions.innerText = amount.value;
     
 }
 const selectAnswer = id => {
     let answerId = id;
     if(answerId == correct_index_answer){
-        score += 1;
+        score++;
         console.log("respuesta correcta!")
     }else {
         console.log("resp incorecta")
     }
     
-    
-    if(qIndex < amount.value) {
-        qIndex +=1;
+    if(qIndex < amount.value){
         startGame();
+        qIndex++;
+        console.log("El qIndex es: " + qIndex);
     }else {
         showResults();
-    }
+    }  
 }
 
 const showResults = () => {
     questionsContainer.innerText = "";
+    let containerResults = document.createElement("div");
+
     let score = document.createElement("p");
     score.innerText = `Juego terminado!`;
     
     let currrentScore = document.createElement("p");
-    currrentScore.innerText = `SCORE: ${score}`;
+    currrentScore.innerHTML = `SCORE: ${score}`;
 
     let restartBtn = document.createElement("a");
     restartBtn.setAttribute("href","index.html");
 
-    questionsContainer.appendChild(score);
-    questionsContainer.appendChild(currentScore);
-    
-    questionsContainer.appendChild(restartBtn);
+    containerResults.append(score);
+    containerResults.append(currrentScore)
+    containerResults.append(restartBtn);
 
-}
+    questionsContainer.appendChild(containerResults);
+}   
+
 // FOR que recorra todos los botones
 for (let i=0; i < answers.length; i++){
     const element = answers[i];
