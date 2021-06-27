@@ -16,6 +16,7 @@ let questions;
 let qIndex = 0;
 let correct_index_answer;
 let score = 0;
+let scoreAccumulator = 0;
 //Funciones
 let getAPIData = e => {
     e.preventDefault();
@@ -69,38 +70,45 @@ const startGame = () => {
     }
 
     questionIndex.innerText = qIndex + 1;
-    numQuestions.innerText = amount.value;
-    
+    numQuestions.innerText = amount.value;    
 }
+
 const selectAnswer = id => {
     let answerId = id;
     if(answerId == correct_index_answer){
-        score++;
         console.log("respuesta correcta!")
+        score = 1;
     }else {
         console.log("resp incorecta")
     }
     
-    if(qIndex < amount.value){
-        startGame();
+    if(qIndex < (amount.value - 1)){
+        startGame(); 
         qIndex++;
-        console.log("El qIndex es: " + qIndex);
-    }else {
+        questionIndex.innerText = qIndex + 1;   
+    }else if (qIndex == (amount.value - 1)){
+        qIndex++;
+        questionIndex.innerText = qIndex + 1;
         showResults();
     }  
+
+    scoreAccumulator = scoreAccumulator + score;
 }
 
 const showResults = () => {
     questionsContainer.innerText = "";
     let containerResults = document.createElement("div");
+    containerResults.className = "container-results";
 
     let score = document.createElement("p");
     score.innerText = `Juego terminado!`;
     
-    let currrentScore = document.createElement("p");
-    currrentScore.innerHTML = `SCORE: ${score}`;
+    let currrentScore = document.createElement("div");
+    currrentScore.innerText = `SCORE: ${scoreAccumulator}/${amount.value}`;
 
     let restartBtn = document.createElement("a");
+    restartBtn.innerText = "Jugar otra vez..."
+    restartBtn.className = "refreshBtn"
     restartBtn.setAttribute("href","index.html");
 
     containerResults.append(score);
