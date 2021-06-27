@@ -73,6 +73,7 @@ const startGame = () => {
     numQuestions.innerText = amount.value;    
 }
 
+
 const selectAnswer = id => {
     let answerId = id;
     if(answerId == correct_index_answer){
