@@ -7,12 +7,12 @@ let category = document.getElementById("category");
 let difficulty = document.getElementById("difficulty");
 let type = document.getElementById("type");
 
-
+let answers = document.getElementsByClassName("answers");
 //Variables de control
 let questions;
 let qIndex = 0;
-let answersArray = [];
-
+let correct_index_answer;
+let score = 0;
 //Funciones
 let getAPIData = e => {
     e.preventDefault();
@@ -29,6 +29,7 @@ let getAPIData = e => {
 
 const startGame = () => {
     console.log(questions);
+    console.log("el score es: " + score)
     questionsContainer.style.display = "flex"
     triviaForm.style.display = "none"
 
@@ -52,16 +53,59 @@ const startGame = () => {
         document.getElementById("3").style.display = "block";
         document.getElementById("4").style.display = "block";
 
-        let incorrectAnswers = currentQuestion.incorrect_answers
-        let correctAnswers = currentQuestion.correct_answer
-        answersArray = incorrectAnswers.concat(correctAnswers)
-        answersArray.forEach(answer => {
+        correct_index_answer = Math.floor(Math.random() * 4) + 1 
+        document.getElementById(correct_index_answer).innerText = currentQuestion.correct_answer;
+        let j = 0;
 
-        })
-        console.log(answersArray)
+        for(let i = 1; i <= 4; i++){
+            if(i === correct_index_answer) continue
+            document.getElementById(i).innerText = currentQuestion.incorrect_answers[j];
+            j++;
+        }
     }
     
 }
+const selectAnswer = id => {
+    let answerId = id;
+    if(answerId == correct_index_answer){
+        score += 1;
+        console.log("respuesta correcta!")
+    }else {
+        console.log("resp incorecta")
+    }
+    
+    
+    if(qIndex < amount.value) {
+        qIndex +=1;
+        startGame();
+    }else {
+        showResults();
+    }
+}
 
+const showResults = () => {
+    questionsContainer.innerText = "";
+    let score = document.createElement("p");
+    score.innerText = `Juego terminado!`;
+    
+    let currrentScore = document.createElement("p");
+    currrentScore.innerText = `SCORE: ${score}`;
+
+    let restartBtn = document.createElement("a");
+    restartBtn.setAttribute("href","index.html");
+
+    questionsContainer.appendChild(score);
+    questionsContainer.appendChild(currentScore);
+    
+    questionsContainer.appendChild(restartBtn);
+
+}
+// FOR que recorra todos los botones
+for (let i=0; i < answers.length; i++){
+    const element = answers[i];
+    element.addEventListener("click", () => {
+        selectAnswer(element.id)
+    })
+}
 //Listener
 triviaForm.addEventListener("submit", getAPIData)
